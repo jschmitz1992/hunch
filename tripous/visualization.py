@@ -7,11 +7,13 @@ from django.templatetags.static import static
 import datetime 
 import pandas as pd
 import os
-
+import matplotlib.pyplot as plt
 
 
 def plotOfDF(priceDF, tickerInfo, plotTimeframe=90):
-    
+    # kill all current plot insances
+    plt.close('all')
+
     # define plot endtime
     latest = priceDF.index[-1]
     # define plot start-stime
@@ -22,10 +24,12 @@ def plotOfDF(priceDF, tickerInfo, plotTimeframe=90):
     currency = tickerInfo["currency"]
     tickerSymbol = tickerInfo["symbol"]
     
+    maxPrice = priceDF['price'].max()
+
     ## plot df to graph
     ax = priceDF.plot(figsize=(15,5),
                 xlim =[threeMonthsAgo, latest],
-                ylim =[0,500],
+                ylim =[0, maxPrice+20],
                 xlabel="Date",
                 ylabel="Price in "+ currency,               
                 title='Stock Prices of ' + tickerSymbol)

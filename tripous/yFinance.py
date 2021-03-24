@@ -26,11 +26,19 @@ def getDFOfSymbol(tickerSymbol,  dataTimeframe="max", priceInterval="1d", priceT
     ## turn datestrings to datetime
     tickerDf.index = pd.to_datetime(tickerDf.index)
     ## get open prices to get as close to the date as possible
-    priceDF= tickerDf[priceType]
+    priceSeries = tickerDf[priceType]
+    priceDF = priceSeries.to_frame(name='price')
 
-
-    
+    try:
+        info = tickerData.info
+    except:
+        # set dummy values
+        info = {
+        "currency":"unknown currency",
+        "symbol":tickerSymbol,
+        "longName":tickerSymbol
+        }
     
     ## return filname for display and Dataframe for further processing
-    return priceDF ,tickerData.info
+    return priceDF ,info
 
