@@ -10,6 +10,7 @@ from django.template import loader
 # Import custom Logic
 from . import yFinance as yFin
 from . import visualization as vis
+from . import prediction as pred
 
 
 def index(request):
@@ -48,10 +49,13 @@ def index(request):
             context["alert_text"] = "This service is currentyl unavailable, please try again in a few minutes."
             return HttpResponse(template.render(context,request))
             
-
         context["graph_src"] = vis.plotOfDF(df,info)
         context["stock_name"] = info["longName"]
 
+        # predict Stuff ()
+        predDF = pred.predictDF(df)
+        vis.plotOfDF(predDF,info, plotTimeframe=180, refGraphName=context["graph_src"], size = (30,5))
+        ## prepare data for prediction
 
 
     return HttpResponse(template.render(context,request))

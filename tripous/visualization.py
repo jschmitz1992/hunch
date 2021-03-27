@@ -10,7 +10,7 @@ import os
 import matplotlib.pyplot as plt
 
 
-def plotOfDF(priceDF, tickerInfo, plotTimeframe=90):
+def plotOfDF(priceDF, tickerInfo, plotTimeframe=90, refGraphName="", size = (15,5)):
     # kill all current plot insances
     plt.close('all')
 
@@ -27,7 +27,7 @@ def plotOfDF(priceDF, tickerInfo, plotTimeframe=90):
     maxPrice = priceDF['price'].max()
 
     ## plot df to graph
-    ax = priceDF.plot(figsize=(15,5),
+    ax = priceDF.plot(figsize=size,
                 xlim =[threeMonthsAgo, latest],
                 ylim =[0, maxPrice+20],
                 xlabel="Date",
@@ -35,12 +35,17 @@ def plotOfDF(priceDF, tickerInfo, plotTimeframe=90):
                 title='Stock Prices of ' + tickerSymbol)
 
     ## create individual filename for every request
-    timestamp = datetime.datetime.now().timestamp()
-    timestamp = str(timestamp).replace(".","-")
-    filename = tickerSymbol + "_" + "graph" + "_" + timestamp + '.png'
+        # check if filename is specified
+    if refGraphName == "":
+            timestamp = datetime.datetime.now().timestamp()
+            timestamp = str(timestamp).replace(".","-")
+            filename = tickerSymbol + "_" + "graph" + "_" + timestamp + '.png'
+            ## save filename to directory
+                                ## UGLY WORKAROUND TO FIND THE APP DIRECTORY
+    else:  
+        filename = refGraphName[:-4] + "_variant.png"
     
-    ## save filename to directory
-                        ## UGLY WORKAROUND TO FIND THE APP DIRECTORY
+    
     filePath = os.path.join("tripous", "static","tripous","img","graph",filename)
 
     ax.figure.savefig(filePath)    
