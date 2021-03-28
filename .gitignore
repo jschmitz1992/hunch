@@ -1,4 +1,4 @@
-**/graph
+**/graph/*.png
 # include dummyfiles
 !**/img/graph/dummy.png
 !**/img/favi.png
