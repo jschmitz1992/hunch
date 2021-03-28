@@ -8,9 +8,7 @@ import yfinance as yf
 import datetime 
 import pandas as pd
 
-def getDFOfSymbol(tickerSymbol,  dataTimeframe="max", priceInterval="1d", priceType="Open"):
-    
-
+def getDFOfSymbol(tickerSymbol,  dataTimeframe="1y", priceInterval="1d", priceType="Open"):
     
     #get data on this ticker
     tickerData = yf.Ticker(tickerSymbol)  

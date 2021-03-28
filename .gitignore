@@ -1,3 +1,4 @@
+**/__pycache__/
 **/graph/*.png
 # include dummyfiles
 !**/img/graph/dummy.png
