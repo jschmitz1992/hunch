@@ -7,9 +7,16 @@ The interface has been implemented on the app "tripous", which can be accessed o
 1. Clone this repository with `git clone https://github.com/jschmitz1992/hunch.git`
 2. Access project directory with `cd hunch` 
 3. Automatically install dependencies with `pip install -r requirements.txt` 
+
+---
+**Technical note**
+
 We generally advise you to create a virtual new environment for installing and running this app to prevent discrepancies with already existing libraries.
+
+---
+
 
 ## How to run
 1. Make sure you are in the top project-directory called "hunch"
 2. Run `python manage.py runserver`
-3. Acess the app via the link provided in the shell (e.g. [http://127.0.0.1:8000/](http://127.0.0.1:8000/))
+3. Access the app via the link provided in the shell (e.g. [http://127.0.0.1:8000/tripous](http://127.0.0.1:8000/tripous))
