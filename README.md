@@ -11,7 +11,7 @@ The interface has been implemented on the app "tripous", which can be accessed o
 ---
 **Technical note**
 
-We generally advise you to create a virtual new environment for installing and running this app to prevent discrepancies with already existing libraries.
+We generally advise you to create a new virtual  environment for installing and running this app to prevent discrepancies with already existing libraries.
 
 ---
 
