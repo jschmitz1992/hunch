@@ -1,5 +1,6 @@
 **/__pycache__/
 **/graph/*.png
+.env
 # include dummyfiles
 !**/img/graph/dummy.png
 !**/img/favi.png
