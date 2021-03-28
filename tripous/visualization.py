@@ -10,29 +10,31 @@ import os
 import matplotlib.pyplot as plt
 
 
-def plotOfDF(priceDF, tickerInfo, plotTimeframe=90, refGraphName="", size = (15,5)):
+def plotOfDF(priceDF, tickerInfo, plotTimeframe=90, predictionStart= None,refGraphName="", size = (15,5)):
     # kill all current plot insances
     plt.close('all')
 
     # define plot endtime
     latest = priceDF.index[-1]
     # define plot start-stime
-    threeMonthsAgo = latest - datetime.timedelta(days=plotTimeframe)
+    startDate = latest - datetime.timedelta(days=plotTimeframe)
     
     
     # get currency fo the displayed prices
     currency = tickerInfo["currency"]
     tickerSymbol = tickerInfo["symbol"]
-    
-    maxPrice = priceDF['price'].max()
+    longName = tickerInfo["longName"]
+
+    maxPrice = priceDF.loc[priceDF.index > startDate]["price"].max()
+
 
     ## plot df to graph
     ax = priceDF.plot(figsize=size,
-                xlim =[threeMonthsAgo, latest],
-                ylim =[0, maxPrice+20],
+                xlim =[startDate, latest],
+                ylim =[0, maxPrice + 5],
                 xlabel="Date",
                 ylabel="Price in "+ currency,               
-                title='Stock Prices of ' + tickerSymbol)
+                title='Stock Prices of ' + longName)
 
     ## create individual filename for every request
         # check if filename is specified
@@ -44,11 +46,19 @@ def plotOfDF(priceDF, tickerInfo, plotTimeframe=90, refGraphName="", size = (15,
                                 ## UGLY WORKAROUND TO FIND THE APP DIRECTORY
     else:  
         filename = refGraphName[:-4] + "_variant.png"
+
+        
     
     
     filePath = os.path.join("tripous", "static","tripous","img","graph",filename)
 
-    ax.figure.savefig(filePath)    
+    # if it is a prediction please make sure, that we spearte the real and the predicted values
+    if predictionStart is not None:
+        ax.axvline(priceDF.index[plotTimeframe//2*-1], color='r', linestyle='--')  
+
+
+                                # padding is already taken care of by the web layout
+    ax.figure.savefig(filePath,bbox_inches='tight', pad_inches=0)    
     
     ## return filname for display and Dataframe for further processing
     return filename

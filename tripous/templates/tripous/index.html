@@ -44,7 +44,7 @@
 
         /* Serious stuff */
         .graph {
-            background-color:#ccc;
+            background-color:rgb(255, 255, 255);
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -81,7 +81,7 @@
     <div class="row">
       <div class="col-md-4 module">
         <h2>{{stock_name}}</h2>
-        <button class="btn btn-default btn-lg">Predict</button>
+        <button id="predictBtn" class="btn btn-default btn-lg">Predict</button>
       </div>
       <div class="col-md-8 module">
         <div id="graphWrapper" class="graph" style="background-image:url('{% static 'tripous/img/graph/'%}{{graph_src}}')"></div>
@@ -91,7 +91,26 @@
   
 
 
+  <!-- Manipulating Website in real time -->
+  <script>
+    $(document).ready(function(){
 
+      $("#predictBtn").one("click",function(){
+        // get image attr
+        imgAttr = $("#graphWrapper").attr("style");
+        // manipulate it
+        imgAttrBase = imgAttr.slice(0, -6);
+        imgAttr = imgAttrBase + "_variant.png')";
+        // update it
+        $("#graphWrapper").attr("style",imgAttr);
+        
+        // finally, mark button as inactive
+        $(this).attr("disabled", "true")
+      });
+    });
+
+
+  </script>
 
 
   </body>

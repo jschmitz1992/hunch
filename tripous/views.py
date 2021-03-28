@@ -54,8 +54,8 @@ def index(request):
 
         # predict Stuff ()
         predDF = pred.predictDF(df)
-        vis.plotOfDF(predDF,info, plotTimeframe=180, refGraphName=context["graph_src"], size = (30,5))
-        ## prepare data for prediction
+        vis.plotOfDF(predDF,info, predictionStart=df.index[-1] ,plotTimeframe=180, refGraphName=context["graph_src"], size = (30,5))
+    
 
 
     return HttpResponse(template.render(context,request))
