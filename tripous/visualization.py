@@ -20,11 +20,12 @@ def plotOfDF(priceDF, tickerInfo, plotTimeframe=90, predictionStart= None,refGra
     startDate = latest - datetime.timedelta(days=plotTimeframe)
     
     
-    # get currency fo the displayed prices
+    # get currency and other metadata for the displayed prices
     currency = tickerInfo["currency"]
     tickerSymbol = tickerInfo["symbol"]
     longName = tickerInfo["longName"]
 
+    # define maximal price in column
     maxPrice = priceDF.loc[priceDF.index > startDate]["price"].max()
 
 
@@ -42,17 +43,17 @@ def plotOfDF(priceDF, tickerInfo, plotTimeframe=90, predictionStart= None,refGra
             timestamp = datetime.datetime.now().timestamp()
             timestamp = str(timestamp).replace(".","-")
             filename = tickerSymbol + "_" + "graph" + "_" + timestamp + '.png'
-            ## save filename to directory
-                                ## UGLY WORKAROUND TO FIND THE APP DIRECTORY
     else:  
         filename = refGraphName[:-4] + "_variant.png"
 
         
     
     
+    ## save filename to directory
+                        ## UGLY WORKAROUND TO FIND THE APP DIRECTORY
     filePath = os.path.join("tripous", "static","tripous","img","graph",filename)
 
-    # if it is a prediction please make sure, that we spearte the real and the predicted values
+    # if it is a prediction please make sure, that we separate the real and the predicted values
     if predictionStart is not None:
         ax.axvline(priceDF.index[plotTimeframe//2*-1], color='r', linestyle='--')  
 
@@ -60,6 +61,6 @@ def plotOfDF(priceDF, tickerInfo, plotTimeframe=90, predictionStart= None,refGra
                                 # padding is already taken care of by the web layout
     ax.figure.savefig(filePath,bbox_inches='tight', pad_inches=0)    
     
-    ## return filname for display and Dataframe for further processing
+    ## return filename for display and Dataframe for further processing
     return filename
 
