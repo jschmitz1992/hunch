@@ -46,7 +46,7 @@ def index(request):
         except Exception:
             # for 500, 429 or else
             context["alert_class"] = "alert-danger"
-            context["alert_text"] = "This service is currentyl unavailable, please try again in a few minutes."
+            context["alert_text"] = "This service is currently unavailable, please try again in a few minutes."
             return HttpResponse(template.render(context,request))
             
         context["stock_name"] = info["longName"]
@@ -55,7 +55,7 @@ def index(request):
         predDF = pred.predictDF(df)
 
         # visualize stuff
-        context["graph_html"] = vis.getHTMLFromPlotly(predDF, info, plotTimeframe=180)
+        context["graph_html"] = vis.getHTMLFromPlotly(predDF, info, plotTimeframe=365)
     
 
     # send all data to the frontend

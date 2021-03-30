@@ -37,6 +37,6 @@ def getDFOfSymbol(tickerSymbol,  dataTimeframe="1y", priceInterval="1d", priceTy
         "longName":tickerSymbol
         }
     
-    ## return filname for display and Dataframe for further processing
+    ## return filename for display and Dataframe for further processing
     return priceDF ,info
 
