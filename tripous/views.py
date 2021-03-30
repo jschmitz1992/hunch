@@ -58,5 +58,6 @@ def index(request):
         context["graph_html"] = vis.getHTMLFromPlotly(predDF, info, plotTimeframe=180)
     
 
-
+    # send all data to the frontend
+    # if no search request has been sent, just return default values 
     return HttpResponse(template.render(context,request))
