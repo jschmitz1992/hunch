@@ -18,7 +18,7 @@ def index(request):
 
     # initialize dummy values
     context = {"stock_name":"See the requested graph here",
-                "graph_src":"dummy.png",
+                "graph_html":"""<div id="graphWrapper" class="graph" style="background-image:url('/static/tripous/img/graph/dummy.png')"></div>""",
                 # alert-success|alert-info|alert-warning|alert-danger -- | hidden
                 "alert_class":"hidden",
                 "alert_text":"",
@@ -49,12 +49,13 @@ def index(request):
             context["alert_text"] = "This service is currentyl unavailable, please try again in a few minutes."
             return HttpResponse(template.render(context,request))
             
-        context["graph_src"] = vis.plotOfDF(df,info)
         context["stock_name"] = info["longName"]
 
-        # predict Stuff ()
+        # predict Stuff
         predDF = pred.predictDF(df)
-        vis.plotOfDF(predDF,info, predictionStart=df.index[-1] ,plotTimeframe=180, refGraphName=context["graph_src"], size = (30,5))
+
+        # visualize stuff
+        context["graph_html"] = vis.getHTMLFromPlotly(predDF, info, plotTimeframe=180)
     
 
 
