@@ -3,6 +3,8 @@ This Django project provides a simple interface for historic stock price data. F
 
 The interface has been implemented on the app "tripous", which can be accessed on the subdirectory with the same name. 
 
+![Screenshot of the prediction app](https://github.com/jschmitz1992/hunch/blob/main/Screenshot.jpg?raw=true)
+
 ## Installation
 1. Clone this repository with `git clone https://github.com/jschmitz1992/hunch.git`
 2. Access project directory with `cd hunch` 
