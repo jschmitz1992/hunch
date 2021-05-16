@@ -115,7 +115,7 @@ def predictDF(df, stockData):
         modelFileName = tickerSymbol + "_" + str(rmse) + '_.model'
         dump(model, modelFileName)  
     else:
-        # the older models worked better
+        # the older models worked better so we instead load that one
         model = load(betterModel) 
 
     # Prediction
@@ -142,7 +142,7 @@ def predictDF(df, stockData):
 
     # turn ordinals back into dates
     predictedDF = dfToDate(predictedDF)
-    # reverse shuffling during train_test_split, by sorting data for presentation
+    # reverse shuffling during train_test_split, by sorting data for presentation purposes
     predictedDF.sort_index(inplace=True)
 
     return predictedDF, rmse
