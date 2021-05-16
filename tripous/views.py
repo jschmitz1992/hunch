@@ -22,11 +22,9 @@ def index(request):
                 # alert-success|alert-info|alert-warning|alert-danger -- | hidden
                 "alert_class":"hidden",
                 "alert_text":"",
+                "rmse": None
                 }
-
-
-
-
+                
 
     # get params
     sQuery = request.GET.get('search', None)
@@ -35,7 +33,7 @@ def index(request):
     if sQuery is not None:
         # try to get data
         try:
-            df, info = yFin.getDFOfSymbol(sQuery)
+            df, info = yFin.getDFOfSymbol(sQuery, dataTimeframe="15mo")
 
         except AssertionError:   
             # for 404
@@ -52,10 +50,11 @@ def index(request):
         context["stock_name"] = info["longName"]
 
         # predict Stuff
-        predDF = pred.predictDF(df)
+        predDF, context["rmse"] = pred.predictDF(df, info)
 
         # visualize stuff
-        context["graph_html"] = vis.getHTMLFromPlotly(predDF, info, plotTimeframe=365)
+        timeframe =  predDF.index[-1] - predDF.index[0]
+        context["graph_html"] = vis.getHTMLFromPlotly(predDF, info, plotTimeframe=timeframe.days)
     
 
     # send all data to the frontend

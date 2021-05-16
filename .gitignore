@@ -1,5 +1,6 @@
 **/__pycache__/
 **/graph/*.png
+*.model
 # include dummyfiles
 !**/img/graph/dummy.png
 !**/img/favi.png

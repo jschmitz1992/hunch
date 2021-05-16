@@ -43,6 +43,12 @@
     <div class="row">
       <div class="col-md-4 module">
         <h2>{{ stock_name }}</h2>
+
+        {% if rmse %}
+          <p>The root mean squared error of this prediction is {{rmse}}.</p>
+          <a class="btn btn-primary" onClick="window.location.reload()">Try to improve</a>
+        {% endif %}
+
       </div>
       <div class="col-md-8 module">
         {% autoescape off %}
